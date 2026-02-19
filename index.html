@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Universo Cine</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1 class="logo">🌌 Universo Cine</h1>
+
+    <div class="busca">
+        <input 
+            type="text" 
+            id="pesquisa" 
+            placeholder="Pesquisar filme..."
+        >
+        <button onclick="pesquisar()">Buscar</button>
+    </div>
+</header>
+
+<main>
+    <div id="filmes" class="container"></div>
+</main>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="fechar" onclick="fecharModal()">✖</span>
+
+        <div id="detalhes"></div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
+
+
