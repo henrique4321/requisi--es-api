@@ -1,25 +1,63 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Clima Público</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<html lang="pt-br">
+<cabeça>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> UniversoCine </title>
 
-<div class="container">
+    <!--favicon-->
+    <!-- <link rel="shortcut icon" href="logocine.png" type="image/x.icon"> -->
 
-  <h1>🌤️ Clima em Tempo Real</h1>
+    <!-- Importação das Fontes -->
+    <link rel="pré-conexão"href="https://fonts.googleapis.com">
+    <link rel="pré-conexão"href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-  <input type="text" id="cidade" placeholder="Digite a cidade">
+    <!-- Importação do CSS -->
+    <link rel="stylesheet" href="style.css">
+</cabeça>
+</corpo>
 
-  <button onclick="buscarClima()">Buscar</button>
+    <!-- Logo -->
+    
+    <!-- Header(Cabeçalho)-->
+    <header class="header">
+        <nav class="container nav-header">
+            <img src="logocine.png" alt="Logo do UniversoCine" class="logo">
 
-  <div id="resultado"></div>
+    
+            <!-- Menu (Com links) -->
+            <ul class="menu">
+                <li><a href="#"> Início </a></li>
+                <li><a href="#"> Filmes </a></li>
+                <li><a href="#"> Séries </a></li>
+                <li><a href="#"> Contato </a></li>
+            </ul>
+        </nav>
+    </header>
 
-</div>
+    <!-- Main(Principal) -->
+   <main>
 
-<script src="script.js"></script>
+  <section class="banner">
 
-</body>
-</html>
+    <div class="conteudo-banner">
+
+      <h1>O que você deseja assistir?</h1>
+
+      <p>Pesquise filmes e descubra novos universos</p>
+
+      <div class="busca">
+        <input type="text" id="nomeFilme" placeholder="Digite o nome do filme">
+        <button onclick="buscarFilme()">Buscar</button>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- RESULTADO DOS FILMES -->
+  <section id="resultado"></section>
+
+</main>

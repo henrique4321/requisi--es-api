@@ -1,42 +1,149 @@
-body{
-  font-family: Arial;
-  background: linear-gradient(135deg,#00c6ff,#0072ff);
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  margin:0;
+/* Reset Básico */ 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
 }
 
-.container{
-  background:white;
-  padding:25px;
-  border-radius:10px;
-  text-align:center;
-  width:300px;
-  box-shadow:0 0 15px rgba(0,0,0,0.2);
+/* Cores */ 
+:root {
+  --cor-primaria:#f000;
+  --cor-secundaria:#B11226;
+  --cor-destaque:#A020F0;
+  --texto-claro:#F5F5F5;
+  --texto-cinza:#8C8C8C;
+  --fundo-escuro:#141414;
 }
 
-input{
-  width:100%;
-  padding:10px;
-  margin:10px 0;
+/* Estilos Gerais */
+
+body {
+  background-color: var(--fundo-escuro);
+  color: var(--texto-claro);
+  font-family:Bebas Neue, sans-serif;
+  line-height: 1.6;
+  font-size: 18px;
 }
 
-button{
-  width:100%;
-  padding:10px;
-  background:#0072ff;
-  color:white;
-  border:none;
-  cursor:pointer;
+address {
+    font-size: normal;
 }
 
-button:hover{
-  background:#0055cc;
+.container {
+    width: 85%;
+    max-width: 1200px;
+    margin: 0% auto;
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-#resultado{
-  margin-top:20px;
+/* Header */
+
+.header {
+  background-color: var(--fundo-escuro);
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: center;
 }
-    
+.nav.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0 2rem;
+}
+.logo {
+    height: 150px;
+}
+
+/*Menu*/
+
+.menu {
+  display: flex;
+  gap: 1.5rem; 
+  list-style: none;
+}
+
+.menu a {
+  color:var(--texto-claro);
+  text-decoration: none; 
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition:color 0.3 ease;
+
+}
+
+.menu a:hover {
+  color: var(--cor-secundaria);
+}   
+
+
+/* Responsividade */
+/* Regra para tela menor que 768px */
+@media (max-width: 768px) {
+  .nav-header {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .logo {
+    height: 0px;
+}
+}
+
+/* BANNER PRINCIPAL */
+.banner {
+  height: 90vh;
+
+  background-image: linear-gradient(
+    rgba(0,0,0,0.7),
+    rgba(0,0,0,0.9)
+  ),
+  url("assets/banner.jpg"); 
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* CONTEÚDO */
+.conteudo-banner h1 {
+  font-size: 40px;
+  font-family: 'Bebas Neue', sans-serif;
+  margin-bottom: 10px;
+}
+
+.conteudo-banner p {
+  font-size: 25px;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+/* BUSCA NO BANNER */
+.busca input {
+  padding: 15px;
+  width: 300px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+}
+
+.busca button {
+  padding: 15px 25px;
+  border: none;
+  background-color: #F9003D;
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.busca button:hover {
+  background-color: #c70030;
+}
