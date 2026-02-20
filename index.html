@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>UniversoCine</title>
+
+    <link rel="icon" type="image/png" href="img/logocine.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 
 </head>
-<body>
+<body id="inicio"></body>
+
+<script src="config.js"></script>
 
 
+<!-- HEADER -->
 <header class="header">
 
     <nav class="container nav-header">
 
-        <img src="logocine.png" class="logo">
+        <img src="img/logocine.png" class="logo">
 
         <ul class="menu">
 
-            <li><a href="#">Início</a></li>
-            <li><a href="#">Filmes</a></li>
-            <li><a href="#">Séries</a></li>
-            <li><a href="#">Contato</a></li>
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#recomendadosSec">Filmes Recomendados</a></li>
+            <li><a href="#streamingSec">Streamings</a></li>
+            <li><a href="#contato">Contato</a></li>
 
         </ul>
 
     </nav>
 
 </header>
-
-
 
 <main>
 
@@ -76,7 +77,7 @@
 
 
 <!-- RECOMENDAÇÕES -->
-<section class="recomendacoes">
+<section class="recomendacoes" id="recomendadosSec">
 
     <h2>Recomendados para você</h2>
 
@@ -84,12 +85,8 @@
 
 </section>
 
-
 </main>
 
-
-
-<script src="script.js"></script>
 
 <!-- MODAL DETALHES -->
 <div id="modal" class="modal">
@@ -100,16 +97,78 @@
 
         <div id="modal-body"></div>
 
-        <div class="trailer">
-        
-</div>
-
-    
-</div>
+        <div class="trailer"></div>
 
     </div>
 
 </div>
+
+
+
+<!-- STREAMINGS -->
+<section class="streaming" id="streamingSec">
+
+  <h2 class="titulo-streaming">Principais Streamings:</h2>
+
+  <div class="conteudo-streaming">
+
+    <a href="https://www.netflix.com/br/" target="_blank" class="card-streaming">
+      <img src="img/netflix.png" alt="Netflix">
+    </a>
+
+    <a href="https://www.primevideo.com/" target="_blank" class="card-streaming">
+      <img src="img/primevideo.png" alt="Prime Video">
+    </a>
+
+    <a href="https://www.disneyplus.com/pt-br" target="_blank" class="card-streaming">
+      <img src="img/disney.png" alt="Disney+">
+    </a>
+
+    <a href="https://www.max.com/br/pt" target="_blank" class="card-streaming">
+      <img src="img/hbomax.png" alt="HBO Max">
+    </a>
+
+  </div>
+
+</section>
+
+
+
+<!-- FOOTER -->
+<footer id="contato">
+
+  <div class="footer-container">
+
+    <div class="footer-col">
+      <h3>Suporte</h3>
+      <ul>
+        <li><a href="#">Sobre Nós</a></li>
+        <li><a href="#">Contato</a></li>
+        <li><a href="#">Política de Privacidade</a></li>
+        <li><a href="#">Termos de Uso</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Redes Sociais</h3>
+      <div class="social-links">
+        <a href="#">Instagram</a>
+        <a href="#">YouTube</a>
+        <a href="#">Twitter</a>
+        <a href="#">Facebook</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 UniversoCine — Todos os direitos reservados</p>
+  </div>
+
+</footer>
+
+
+<script src="script.js"></script>
 
 </body>
 </html>
