@@ -1,172 +1,179 @@
 const apiKey = "563d1fe636f7f9d8066fcc6a7d684725";
 
-const container = document.getElementById("filmes");
+const urlBusca = "https://api.themoviedb.org/3/search/movie";
 
-const modal = document.getElementById("modal");
+const urlPopular = "https://api.themoviedb.org/3/movie/popular";
 
-const detalhesDiv = document.getElementById("detalhes");
-
-
-// carregar filmes ao iniciar
-carregarPopulares();
+const urlImagem = "https://image.tmdb.org/t/p/w500";
 
 
-// filmes populares
-function carregarPopulares(){
 
-    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR`)
-    .then(res => res.json())
-    .then(data => mostrarFilmes(data.results));
+/* BUSCAR FILME */
+
+async function buscarFilme() {
+
+    const nomeFilme = document.getElementById("nomeFilme").value;
+
+    if(nomeFilme.trim() === "") {
+        alert("Digite um nome");
+        return;
+    }
+
+    const resposta = await fetch(
+        `${urlBusca}?api_key=${apiKey}&language=pt-BR&query=${nomeFilme}`
+    );
+
+    const dados = await resposta.json();
+
+    document.getElementById("resultado").classList.add("ativo");
+
+    mostrarFilmes(dados.results, "resultado");
 
 }
 
 
-// mostrar filmes
-function mostrarFilmes(filmes){
+
+/* RECOMENDADOS */
+
+async function carregarRecomendados() {
+
+    const resposta = await fetch(
+        `${urlPopular}?api_key=${apiKey}&language=pt-BR`
+    );
+
+    const dados = await resposta.json();
+
+    mostrarFilmes(dados.results, "recomendados");
+
+}
+
+
+
+/* MOSTRAR FILMES */
+
+function mostrarFilmes(filmes, elementoId) {
+
+    const container = document.getElementById(elementoId);
 
     container.innerHTML = "";
 
-    filmes.forEach(filme => {
+    filmes.slice(0,10).forEach(filme => {
 
-        const poster = 
-        "https://image.tmdb.org/t/p/w500" + filme.poster_path;
+        const poster = filme.poster_path
+        ? urlImagem + filme.poster_path
+        : "";
 
-        container.innerHTML += `
-            <div class="card" onclick="verDetalhes(${filme.id})">
+        const card = document.createElement("div");
 
-                <img src="${poster}">
+        card.classList.add("card");
 
-                <h3>${filme.title}</h3>
+        card.onclick = () => abrirDetalhes(filme.id);
 
-                <p>⭐ ${filme.vote_average}</p>
+        card.innerHTML = `
 
-            </div>
+            <img src="${poster}">
+            <h3>${filme.title}</h3>
+
         `;
 
-    });
-
-}
-
-
-// pesquisar filmes
-function pesquisar(){
-
-    const nome = document.getElementById("pesquisa").value;
-
-    fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=pt-BR&query=${nome}`)
-    .then(res => res.json())
-    .then(data => mostrarFilmes(data.results));
-
-}
-
-
-// ver detalhes
-function verDetalhes(id){
-
-    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=pt-BR`)
-    .then(res => res.json())
-    .then(filme => {
-
-        const poster = 
-        "https://image.tmdb.org/t/p/w500" + filme.poster_path;
-
-        detalhesDiv.innerHTML = `
-            <h2>${filme.title}</h2>
-
-            <img src="${poster}" width="200">
-
-            <p><strong>Nota:</strong> ${filme.vote_average}</p>
-
-            <p>${filme.overview}</p>
-
-            <div id="trailer"></div>
-
-            <div id="assistir"></div>
-        `;
-
-        modal.style.display = "block";
-
-        carregarTrailer(id);
-
-        carregarOndeAssistir(id);
+        container.appendChild(card);
 
     });
 
 }
 
 
-// carregar trailer
-function carregarTrailer(id){
 
-    fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${apiKey}&language=pt-BR`)
-    .then(res => res.json())
-    .then(data => {
+/* ABRIR DETALHES */
 
-        const trailerDiv = document.getElementById("trailer");
+async function abrirDetalhes(id) {
 
-        if(data.results.length > 0){
+    const resposta = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=pt-BR`
+    );
 
-            const trailer = data.results[0];
-
-            trailerDiv.innerHTML = `
-                <h3>🎥 Trailer:</h3>
-
-                <a href="https://www.youtube.com/watch?v=${trailer.key}" target="_blank">
-
-                    ▶ Assistir Trailer
-
-                </a>
-            `;
-
-        }else{
-
-            trailerDiv.innerHTML = "Trailer não disponível";
-
-        }
-
-    });
-
-}
+    const filme = await resposta.json();
 
 
-// onde assistir
-function carregarOndeAssistir(id){
 
-    fetch(`https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${apiKey}`)
-    .then(res => res.json())
-    .then(data => {
+    const respostaVideo = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${apiKey}&language=pt-BR`
+    );
 
-        const assistirDiv = document.getElementById("assistir");
+    const videos = await respostaVideo.json();
 
-        const br = data.results.BR;
+  let trailer = "";
+let botaoTrailer = "";
 
-        if(br && br.flatrate){
+const trailerOficial = videos.results.find(video => 
+    video.type === "Trailer" &&
+    video.site === "YouTube" &&
+    video.official === true
+);
 
-            assistirDiv.innerHTML = "<h3>📺 Onde assistir:</h3>";
+if(trailerOficial){
 
-            br.flatrate.forEach(servico => {
+    trailer = `
+        <a href="https://www.youtube.com/watch?v=${trailerOficial.key}"
+        target="_blank"
+        class="btn-trailer">
+        ▶ Assistir Trailer
+        </a>
+    `;
 
-                assistirDiv.innerHTML += `
-                    <p>${servico.provider_name}</p>
-                `;
+    botaoTrailer = `
+        <a href="https://www.youtube.com/watch?v=${trailerOficial.key}"
+           target="_blank"
+           class="btn-trailer">
+           Assistir no YouTube
+        </a>
+    `;
 
-            });
+}else{
 
-        }else{
-
-            assistirDiv.innerHTML += 
-            "<p>Não disponível no Brasil</p>";
-
-        }
-
-    });
+    trailer = `<p>Trailer não disponível para incorporação.</p>`;
 
 }
 
 
-// fechar modal
+    const poster = urlImagem + filme.poster_path;
+
+
+
+    document.getElementById("modal-body").innerHTML = `
+
+        <img src="${poster}">
+
+        <h2>${filme.title}</h2>
+
+        <p><b>Avaliação:</b> ⭐ ${filme.vote_average}</p>
+
+        <p><b>Ano:</b> ${filme.release_date}</p>
+
+        <p>${filme.overview}</p>
+
+        ${trailer}
+
+    `;
+
+
+
+    document.getElementById("modal").style.display = "block";
+
+}
+
+
+
+/* FECHAR MODAL */
+
 function fecharModal(){
 
-    modal.style.display = "none";
+    document.getElementById("modal").style.display = "none";
 
 }
+
+
+
+/* CARREGAR AUTOMATICO */
+
+carregarRecomendados();
